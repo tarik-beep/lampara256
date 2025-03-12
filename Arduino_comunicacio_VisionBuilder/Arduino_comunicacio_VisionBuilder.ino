@@ -18,7 +18,7 @@ CRGB leds[NUM_LEDS];
 #define BLACK   CRGB(0, 0, 0)
 
 // Definim el emoji en una matriu de 16x16
-const CRGB emoji[16][16] = {
+const CRGB emoji1[16][16] = {
   {WHITE, WHITE, WHITE, WHITE, WHITE, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, WHITE, WHITE, WHITE, WHITE, WHITE},
   {WHITE, WHITE, WHITE, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, WHITE, WHITE, WHITE},
   {WHITE, WHITE, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, WHITE, WHITE},
@@ -36,25 +36,80 @@ const CRGB emoji[16][16] = {
   {WHITE, WHITE, WHITE, WHITE, WHITE, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, WHITE, WHITE, WHITE, WHITE, WHITE},
   {WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, YELLOW, YELLOW, YELLOW, YELLOW, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE}
 };
+const CRGB emojiblank[16][16];
+// Arduino server for Color LEGO_Arduino.vbai 
 
+const byte numChars = 255;
+char receivedChars[numChars];   // an array to store the received data
+
+boolean newData = false;
 void setup() {
-    FastLED.addLeds<WS2812, LED_PIN, GRB>(leds, NUM_LEDS).setCorrection(TypicalSMD5050);
+    Serial.begin(9600);
+    FastLED.addLeds<WS2812, LED_PIN, GRB>(leds, NUM_LEDS);
     FastLED.setBrightness( BRIGHTNESS );
     drawEmoji();
     FastLED.show();
+    pinMode(8,INPUT_PULLUP);
 }
 
 void loop() {
+  buttonPres();
+  recvWithEndMarker();
+  if (newData == true){
     FastLED.show();
-    delay(100);
+    newData = false; 
+  }   
 }
+
+// ********************* Funcions
 
 void drawEmoji() {
     for (int y = 0; y < MATRIX_HEIGHT; y++) {
         for (int x = 0; x < MATRIX_WIDTH; x++) {
-            leds[XY(x, y)] = emoji[y][x];
+            leds[XY(x, y)] = WHITE;//emojiblank[y][x];
         }
     }
+}
+
+void recvWithEndMarker() {
+  static byte nbit = 0;
+  static byte nbyte = 0;
+  char endMarker = '\n';
+  char rc;
+   
+  while (Serial.available() > 0 && newData == false) {
+    rc = Serial.read();
+    if (rc != endMarker)
+    {
+      for (int i = 0; i<=7 ; i++)
+      {
+        int bitValue = (rc >> i) & 1;
+        if (bitValue == 1)
+        {
+          leds[nbit+(8*nbyte)] = CRGB::WHITE;
+        }
+        else
+        {
+          leds[nbit+(8*nbyte)] = CRGB::BLACK;
+        }
+        nbit++;
+      }
+      nbyte++;      
+    }
+    else {
+      //receivedChars[ndx] = '\0'; // terminate the string
+      nbit = 0;
+      nbyte = 0;
+      newData = true;
+    }
+  }
+}
+
+void buttonPres(){
+  if(digitalRead(8)==LOW){
+     Serial.write('S');
+     delay(500);
+  }
 }
 
 
