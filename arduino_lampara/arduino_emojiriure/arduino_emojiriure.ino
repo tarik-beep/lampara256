@@ -16,6 +16,10 @@ CRGB leds[NUM_LEDS];
 #define BLUE    CRGB(0, 0, 255)
 #define WHITE   CRGB(255, 255, 255)
 #define BLACK   CRGB(0, 0, 0)
+#define Yellow  CRGB(255, 200, 0)
+#define Blue    CRGB(0, 0, 255)
+#define White   CRGB(255, 255, 255)
+#define Black   CRGB(0, 0, 0)
 
 // Definim el emoji en una matriu de 16x16
 const CRGB emoji[16][16] = {
@@ -36,6 +40,24 @@ const CRGB emoji[16][16] = {
   {WHITE, WHITE, WHITE, WHITE, WHITE, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, WHITE, WHITE, WHITE, WHITE, WHITE},
   {WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, YELLOW, YELLOW, YELLOW, YELLOW, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE}
 };
+const CRGB prova2[16][16] = {
+{ White, White, White, White, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, White, White, White, White},
+{ White, White, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, White, White, White},
+{ White, White, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, White, White},
+{ White, Yellow, Yellow, Black, Black, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Black, Black, Yellow, Yellow, White},
+{ Yellow, Yellow, Black, Black, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Black, Black, Yellow, Yellow},
+{ Yellow, Yellow, Yellow, Yellow, Black, Black, Yellow, Yellow, Yellow, Yellow, Black, Black, Yellow, Yellow, Yellow, Yellow},
+{ Yellow, Yellow, Yellow, Yellow, Black, Black, Yellow, Yellow, Yellow, Yellow, Black, Black, Yellow, Yellow, Yellow, Yellow},
+{ Yellow, Yellow, Yellow, Blue, Blue, Blue, Blue, Yellow, Yellow, Blue, Blue, Blue, Blue, Yellow, Yellow, Yellow},
+{ Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Black, Black, Black, Black, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow},
+{ Black, Black, Black, Black, Black, Black, Black, Black, Black, Black, Black, Black, Black, Yellow, Yellow, Yellow},
+{ Black, Black, Black, Black, Blue, Blue, White, White, White, White, Blue, Blue, Black, Black, Black, Black},
+{ Black, Black, Black, Black, Blue, Blue, Blue, Blue, Blue, Blue, Blue, Blue, Black, Black, Black, Black},
+{ White, Black, Black, Black, Black, Black, Black, Black, Black, Black, Black, Black, Black, Black, Black, White},
+{ White, White, Black, Black, Black, Black, Black, Black, Black, Black, Black, Black, Black, Black, White, White},
+{ White, White, White, White, Black, Black, Black, Black, Black, Black, Black, White, White, White, White, White},
+{ White, White, White, White, Black, Black, Black, Black, Black, Black, Black, White, White, White, White, White}
+};
 
 void setup() {
     FastLED.addLeds<WS2812, LED_PIN, GRB>(leds, NUM_LEDS).setCorrection(TypicalSMD5050);
@@ -52,7 +74,7 @@ void loop() {
 void drawEmoji() {
     for (int y = 0; y < MATRIX_HEIGHT; y++) {
         for (int x = 0; x < MATRIX_WIDTH; x++) {
-            leds[XY(x, y)] = emoji[y][x];
+            leds[XY(x, y)] = prova2[y][x];
         }
     }
 }

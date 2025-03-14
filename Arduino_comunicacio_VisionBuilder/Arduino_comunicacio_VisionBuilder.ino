@@ -94,11 +94,11 @@ void recvWithEndMarker() {
         }
         nbit++;
       }
+      nbit = 0;
       nbyte++;      
     }
     else {
       //receivedChars[ndx] = '\0'; // terminate the string
-      nbit = 0;
       nbyte = 0;
       newData = true;
     }
