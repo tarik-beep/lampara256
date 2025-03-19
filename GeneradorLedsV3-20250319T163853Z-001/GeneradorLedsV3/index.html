@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Generador Leds 16x16</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- <header>
+      <h1>Generador leds 16x16</h1>
+    </header> -->
+    <main>
+      <aside>
+        <fieldset class="colors">
+          <legend>Colors</legend>
+          <span id="currentColor" class="posAbs"></span>
+          <ul id="colorsList"></ul>
+        </fieldset>
+        <div class="btnGetColors">
+          <button id="getColors" class="btn">Colors to C</button>
+        </div>
+      </aside>
+      <section>
+        <div id="grid"></div>
+      </section>
+      <nav>
+        <ul>
+          <li>Name: <input type="text" id="name" placeholder="happy" /></li>
+          <li><button id="save" class="btn">Save to Clipboard</button></li>
+          <hr />
+          <li>
+            <p>Text Array from Arduino:</p>
+            <textarea
+              id="arrayText"
+              rows="10"
+              cols="30"
+              placeholder="EXAMPLE: const CRGB variableName[16][16] = {
+{ WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE},
+{ WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE},
+{ WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE},
+{ WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE},
+{ WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE},
+{ WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE},
+{ WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE},
+{ WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE},
+{ WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE},
+{ WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE},
+{ WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE},
+{ WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE},
+{ WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE},
+{ WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE},
+{ WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE},
+{ WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE}
+};"
+            ></textarea>
+          </li>
+          <li><button id="load" class="btn">Text to C Array</button></li>
+          <hr />
+          <li><p>Options:</p></li>
+          <li><button id="bg" class="btn">Reset All Leds</button></li>
+          <li><button id="rotate" class="btn">Rotate</button></li>
+          <hr />
+          <li>
+            <input
+              id="cellSize"
+              type="range"
+              min="30"
+              max="50"
+              value="40"
+              step="1"
+            />
+          </li>
+        </ul>
+      </nav>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,139 @@
+:root {
+  --cell-size: 40px;
+  --col-btn-start: rgb(34, 249, 1);
+  --col-btn-mid: rgb(30, 0, 255);
+  --col-btn-end: rgb(255, 70, 0);
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+
+main {
+  display: flex;
+}
+
+/* COLORS */
+aside {
+  padding: 10px;
+  width: 150px;
+  min-width: 150px;
+}
+
+.colors {
+  background-color: silver;
+  border: 1px solid black;
+  border-radius: 6px;
+  padding-bottom: 0px;
+  position: relative;
+}
+
+.colors legend {
+  font-size: 20px;
+  padding: 4px 12px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 4px;
+}
+
+.colors ul {
+  padding: 0px 3px;
+  margin-top: 10px;
+}
+
+.colors ul li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.colors ul li:hover {
+  box-shadow: 1px 1px 2px black;
+}
+
+.colors ul li:active {
+  box-shadow: inset -1px -1px 2px black;
+}
+
+.colors ul li span {
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+}
+
+.posAbs {
+  position: absolute;
+  top: -30px;
+  left: 105px;
+  z-index: 10;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid slategray;
+  transition: ease-in 0.3s;
+}
+
+.btnGetColors {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* NAVIGATION */
+nav {
+  padding: 10px;
+}
+
+nav ul {
+  list-style: none;
+  padding-left: 10px;
+}
+
+nav ul li {
+  margin-bottom: 20px;
+}
+
+.btn {
+  font-size: 20px;
+  padding: 10px 20px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  background: linear-gradient(45deg, var(--col-btn-start), var(--col-btn-mid), var(--col-btn-end));
+  background-size: 200% 200%;
+  transition: ease-out 0.3s;
+}
+
+.btn:hover {
+  background-position: 100% 100%;
+}
+
+/* GRID */
+section #grid {
+  padding: 1px;
+  background-color: silver;
+}
+
+.row-item {
+  display: flex;
+  gap: 1px;
+  margin-bottom: 1px;
+}
+
+.row-item:last-child {
+  margin-bottom: 0;
+}
+
+.col-item {
+  width: var(--cell-size);
+  height: var(--cell-size);
+  transition: ease-in 0.1s;
+}

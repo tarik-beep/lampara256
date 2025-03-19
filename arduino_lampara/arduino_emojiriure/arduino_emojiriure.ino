@@ -11,15 +11,18 @@ CRGB leds[NUM_LEDS];
 // Mapeig de la matriu (dependrà de la connexió)
 #define XY(x, y) ((y) * MATRIX_WIDTH + (x))
 
-// Definim els colors bàsics
-#define YELLOW  CRGB(255, 200, 0)
-#define BLUE    CRGB(0, 0, 255)
-#define WHITE   CRGB(255, 255, 255)
-#define BLACK   CRGB(0, 0, 0)
-#define Yellow  CRGB(255, 200, 0)
-#define Blue    CRGB(0, 0, 255)
-#define White   CRGB(255, 255, 255)
-#define Black   CRGB(0, 0, 0)
+// Colors:
+#define BLACK CRGB(0, 0, 0)
+#define WHITE CRGB(255, 255, 255)
+#define RED CRGB(255, 0, 0)
+#define GREEN CRGB(0, 128, 0)
+#define BLUE CRGB(0, 0, 255)
+#define YELLOW CRGB(255, 255, 0)
+#define ORANGE CRGB(255, 165, 0)
+#define PURPLE CRGB(128, 0, 128)
+#define PINK CRGB(255, 192, 203)
+#define BROWN CRGB(165, 42, 42)
+#define GRAY CRGB(128, 128, 128)
 
 // Definim el emoji en una matriu de 16x16
 const CRGB emoji[16][16] = {
@@ -40,23 +43,24 @@ const CRGB emoji[16][16] = {
   {WHITE, WHITE, WHITE, WHITE, WHITE, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, WHITE, WHITE, WHITE, WHITE, WHITE},
   {WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, YELLOW, YELLOW, YELLOW, YELLOW, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE}
 };
-const CRGB prova2[16][16] = {
-{ White, White, White, White, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, White, White, White, White},
-{ White, White, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, White, White, White},
-{ White, White, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, White, White},
-{ White, Yellow, Yellow, Black, Black, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Black, Black, Yellow, Yellow, White},
-{ Yellow, Yellow, Black, Black, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Black, Black, Yellow, Yellow},
-{ Yellow, Yellow, Yellow, Yellow, Black, Black, Yellow, Yellow, Yellow, Yellow, Black, Black, Yellow, Yellow, Yellow, Yellow},
-{ Yellow, Yellow, Yellow, Yellow, Black, Black, Yellow, Yellow, Yellow, Yellow, Black, Black, Yellow, Yellow, Yellow, Yellow},
-{ Yellow, Yellow, Yellow, Blue, Blue, Blue, Blue, Yellow, Yellow, Blue, Blue, Blue, Blue, Yellow, Yellow, Yellow},
-{ Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Black, Black, Black, Black, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow},
-{ Black, Black, Black, Black, Black, Black, Black, Black, Black, Black, Black, Black, Black, Yellow, Yellow, Yellow},
-{ Black, Black, Black, Black, Blue, Blue, White, White, White, White, Blue, Blue, Black, Black, Black, Black},
-{ Black, Black, Black, Black, Blue, Blue, Blue, Blue, Blue, Blue, Blue, Blue, Black, Black, Black, Black},
-{ White, Black, Black, Black, Black, Black, Black, Black, Black, Black, Black, Black, Black, Black, Black, White},
-{ White, White, Black, Black, Black, Black, Black, Black, Black, Black, Black, Black, Black, Black, White, White},
-{ White, White, White, White, Black, Black, Black, Black, Black, Black, Black, White, White, White, White, White},
-{ White, White, White, White, Black, Black, Black, Black, Black, Black, Black, White, White, White, White, White}
+
+const CRGB gggg[16][16] = {
+{ BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK},
+{ WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE},
+{ RED, RED, RED, RED, RED, RED, RED, RED, RED, RED, RED, RED, RED, RED, RED, RED},
+{ GREEN, GREEN, GREEN, GREEN, GREEN, GREEN, GREEN, GREEN, GREEN, GREEN, GREEN, GREEN, GREEN, GREEN, GREEN, GREEN},
+{ BLUE, BLUE, BLUE, BLUE, BLUE, BLUE, BLUE, BLUE, BLUE, BLUE, BLUE, BLUE, BLUE, BLUE, BLUE, BLUE},
+{ YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW},
+{ ORANGE, ORANGE, ORANGE, ORANGE, ORANGE, ORANGE, ORANGE, ORANGE, ORANGE, ORANGE, ORANGE, ORANGE, ORANGE, ORANGE, ORANGE, ORANGE},
+{ PURPLE, PURPLE, PURPLE, PURPLE, PURPLE, PURPLE, PURPLE, PURPLE, PURPLE, PURPLE, PURPLE, PURPLE, PURPLE, PURPLE, PURPLE, PURPLE},
+{ PINK, PINK, PINK, PINK, PINK, PINK, PINK, PINK, PINK, PINK, PINK, PINK, PINK, PINK, PINK, PINK},
+{ BROWN, BROWN, BROWN, BROWN, BROWN, BROWN, BROWN, BROWN, BROWN, GRAY, GRAY, GRAY, BROWN, BROWN, BROWN, BROWN},
+{ PINK, GRAY, GRAY, PINK, GRAY, PINK, PINK, GRAY, GRAY, GRAY, PINK, PINK, PINK, PINK, GRAY, GRAY},
+{ PINK, GRAY, PINK, PINK, PINK, PINK, GRAY, PINK, PINK, PINK, GRAY, GRAY, GRAY, GRAY, GRAY, PINK},
+{ PINK, GRAY, PINK, GRAY, GRAY, GRAY, GRAY, GRAY, PINK, PINK, GRAY, PINK, PINK, GRAY, GRAY, PINK},
+{ PINK, PINK, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, PINK, PINK, GRAY, PINK, PINK, GRAY, PINK},
+{ PINK, GRAY, PINK, PINK, PINK, PINK, GRAY, GRAY, GRAY, GRAY, PINK, PINK, GRAY, PINK, PINK, PINK},
+{ PINK, PINK, PINK, PINK, PINK, PINK, PINK, PINK, PINK, PINK, GRAY, PINK, GRAY, GRAY, GRAY, PINK}
 };
 
 void setup() {
@@ -74,7 +78,7 @@ void loop() {
 void drawEmoji() {
     for (int y = 0; y < MATRIX_HEIGHT; y++) {
         for (int x = 0; x < MATRIX_WIDTH; x++) {
-            leds[XY(x, y)] = prova2[y][x];
+            leds[XY(x, y)] = gggg[y][x];
         }
     }
 }

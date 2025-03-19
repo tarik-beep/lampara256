@@ -17,6 +17,8 @@ CRGB leds[NUM_LEDS];
 #define WHITE   CRGB(255, 255, 255)
 #define BLACK   CRGB(0, 0, 0)
 
+
+
 // Definim el emoji en una matriu de 16x16
 const CRGB emoji1[16][16] = {
   {WHITE, WHITE, WHITE, WHITE, WHITE, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, WHITE, WHITE, WHITE, WHITE, WHITE},
