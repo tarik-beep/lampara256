@@ -46,7 +46,7 @@ char receivedChars[numChars];   // an array to store the received data
 
 boolean newData = false;
 boolean newColor = false;
-byte ColorPantalla[3];
+byte ColorPantalla[3] = {100,255,0};
 
 void setup() {
     Serial.begin(9600);
@@ -62,7 +62,8 @@ void loop() {
   recvWithEndMarker();
   if (newData == true){
     FastLED.show();
-    newData = false; 
+    newData = false;
+    newColor = false; 
   }   
 }
 
@@ -85,16 +86,15 @@ void recvWithEndMarker() {
    
   while (Serial.available() > 0 && newData == false) {
     rc = Serial.read();
-    //if (rc != endMarker)
     if (newColor == false)
     { 
-     ColorPantalla[ncolor] = rc;
+     ColorPantalla[ncolor] = (byte)rc;
      ncolor++;
-     if (ncolor == 3){
+    }
+    if (ncolor == 3)
+     {
       newColor = true;
      }
-    }
-
     if (nbyte !=32 && newColor==true)
     {
       for (int i = 0; i<=7 ; i++)
@@ -117,7 +117,6 @@ void recvWithEndMarker() {
       //receivedChars[ndx] = '\0'; // terminate the string
       nbyte = 0;
       newData = true;
-      ncolor = 0;
       newColor = false;
     }
   }
