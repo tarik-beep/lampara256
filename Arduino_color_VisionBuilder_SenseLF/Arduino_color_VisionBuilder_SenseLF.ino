@@ -77,7 +77,7 @@ void drawEmoji() {
     }
 }
 
-void recvWithEndMarker() {
+/*void recvWithEndMarker() {
   static byte nbit = 0;
   static byte nbyte = 0;
   char endMarker = '\n';
@@ -118,6 +118,34 @@ void recvWithEndMarker() {
       nbyte = 0;
       newData = true;
       newColor = false;
+    }
+  }
+}*/
+void recvWithEndMarker() {
+  static int pixelIndex = 0;         
+  static byte rgb[3];                
+  static byte colorPos = 0;          
+  char rc;
+
+  while (Serial.available() > 0) {
+    rc = Serial.read();
+    rgb[colorPos] = (byte)rc;
+    colorPos++;
+
+    if (colorPos == 3) { 
+      if (pixelIndex < NUM_LEDS) {
+        leds[pixelIndex] = CRGB(rgb[0], rgb[1], rgb[2]);
+        pixelIndex++;
+      }
+      colorPos = 0;
+
+      
+      FastLED.show(); 
+    }
+
+    
+    if (pixelIndex >= NUM_LEDS) {
+      pixelIndex = 0;
     }
   }
 }
