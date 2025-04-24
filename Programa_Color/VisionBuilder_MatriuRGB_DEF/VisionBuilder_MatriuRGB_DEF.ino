@@ -17,6 +17,7 @@ CRGB leds[NUM_LEDS];
 #define WHITE   CRGB(255, 255, 255)
 #define BLACK   CRGB(0, 0, 0)
 
+
 const CRGB emojiblank[16][16];
 // Arduino server for Color LEGO_Arduino.vbai 
 
@@ -24,6 +25,9 @@ const byte numChars = 255;
 char receivedChars[numChars];   // an array to store the received data
 
 boolean newData = false;
+boolean newColor = false;
+byte ColorPantalla[3] = {100,255,0};
+
 void setup() {
     Serial.begin(9600);
     FastLED.addLeds<WS2812, LED_PIN, GRB>(leds, NUM_LEDS);
@@ -38,7 +42,8 @@ void loop() {
   recvWithEndMarker();
   if (newData == true){
     FastLED.show();
-    newData = false; 
+    newData = false;
+    newColor = false; 
   }   
 }
 
@@ -53,35 +58,30 @@ void drawEmoji() {
 }
 
 void recvWithEndMarker() {
-  static byte nbit = 0;
-  static byte nbyte = 0;
-  char endMarker = '\n';
+  static int pixelIndex = 0;         
+  static byte rgb[3];                
+  static byte colorPos = 0;          
   char rc;
-   
-  while (Serial.available() > 0 && newData == false) {
+
+  while (Serial.available() > 0) {
     rc = Serial.read();
-    if (rc != endMarker)
-    {
-      for (int i = 0; i<=7 ; i++)
-      {
-        int bitValue = (rc >> i) & 1;
-        if (bitValue == 1)
-        {
-          leds[nbit+(8*nbyte)] = CRGB::WHITE;
-        }
-        else
-        {
-          leds[nbit+(8*nbyte)] = CRGB::BLACK;
-        }
-        nbit++;
+    rgb[colorPos] = (byte)rc;
+    colorPos++;
+
+    if (colorPos == 3) { 
+      if (pixelIndex < NUM_LEDS) {
+        leds[pixelIndex] = CRGB(rgb[0], rgb[1], rgb[2]);
+        pixelIndex++;
       }
-      nbit = 0;
-      nbyte++;      
+      colorPos = 0;
+
+      
+      FastLED.show(); 
     }
-    else {
-      //receivedChars[ndx] = '\0'; // terminate the string
-      nbyte = 0;
-      newData = true;
+
+    
+    if (pixelIndex >= NUM_LEDS) {
+      pixelIndex = 0;
     }
   }
 }

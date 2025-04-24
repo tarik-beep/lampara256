@@ -17,27 +17,6 @@ CRGB leds[NUM_LEDS];
 #define WHITE   CRGB(255, 255, 255)
 #define BLACK   CRGB(0, 0, 0)
 
-
-
-// Definim el emoji en una matriu de 16x16
-const CRGB emoji1[16][16] = {
-  {WHITE, WHITE, WHITE, WHITE, WHITE, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, WHITE, WHITE, WHITE, WHITE, WHITE},
-  {WHITE, WHITE, WHITE, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, WHITE, WHITE, WHITE},
-  {WHITE, WHITE, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, WHITE, WHITE},
-  {WHITE, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, WHITE},
-  {WHITE, YELLOW, YELLOW, BLACK, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, BLACK, YELLOW, YELLOW, WHITE},
-  {YELLOW, YELLOW, BLACK, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, BLACK, YELLOW, YELLOW},
-  {YELLOW, BLACK, YELLOW, BLACK, BLACK, BLACK, YELLOW, YELLOW, YELLOW, YELLOW, BLACK, BLACK, BLACK, YELLOW, BLACK, YELLOW},
-  {YELLOW, YELLOW, YELLOW, BLUE, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, BLUE, YELLOW, YELLOW, YELLOW},
-  {YELLOW, YELLOW, BLUE, BLUE, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLUE, BLUE, YELLOW, YELLOW},
-  {YELLOW, BLUE, BLUE, BLUE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, BLUE, BLUE, BLUE, YELLOW},
-  {BLUE, BLUE, BLUE, BLUE, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLUE, BLUE, BLUE, BLUE},
-  {BLUE, BLUE, BLUE, BLUE, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLUE, BLUE, BLUE, BLUE},
-  {WHITE, BLUE, BLUE, YELLOW, YELLOW, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, YELLOW, YELLOW, BLUE, BLUE, WHITE},
-  {WHITE, WHITE, WHITE, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, WHITE, WHITE, WHITE},
-  {WHITE, WHITE, WHITE, WHITE, WHITE, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, WHITE, WHITE, WHITE, WHITE, WHITE},
-  {WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, YELLOW, YELLOW, YELLOW, YELLOW, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE}
-};
 const CRGB emojiblank[16][16];
 // Arduino server for Color LEGO_Arduino.vbai 
 
@@ -77,7 +56,7 @@ void drawEmoji() {
     }
 }
 
-/*void recvWithEndMarker() {
+void recvWithEndMarker() {
   static byte nbit = 0;
   static byte nbyte = 0;
   char endMarker = '\n';
@@ -118,34 +97,6 @@ void drawEmoji() {
       nbyte = 0;
       newData = true;
       newColor = false;
-    }
-  }
-}*/
-void recvWithEndMarker() {
-  static int pixelIndex = 0;         
-  static byte rgb[3];                
-  static byte colorPos = 0;          
-  char rc;
-
-  while (Serial.available() > 0) {
-    rc = Serial.read();
-    rgb[colorPos] = (byte)rc;
-    colorPos++;
-
-    if (colorPos == 3) { 
-      if (pixelIndex < NUM_LEDS) {
-        leds[pixelIndex] = CRGB(rgb[0], rgb[1], rgb[2]);
-        pixelIndex++;
-      }
-      colorPos = 0;
-
-      
-      FastLED.show(); 
-    }
-
-    
-    if (pixelIndex >= NUM_LEDS) {
-      pixelIndex = 0;
     }
   }
 }
